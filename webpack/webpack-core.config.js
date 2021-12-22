@@ -41,7 +41,8 @@ module.exports = {
             ignore: [
               "**/index.html"
             ]
-          }
+          },
+          noErrorOnMissing: true
         }
       ]
     }),
