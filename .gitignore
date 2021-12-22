@@ -2,6 +2,7 @@
 /.bsp/
 /.metals/
 /.vscode/
+/build/
 /project/.bloop/
 /project/project/
 /project/target/
