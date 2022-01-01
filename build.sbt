@@ -17,6 +17,7 @@ Compile / npmDevDependencies += "webpack-merge" -> "5.8.0"
 
 libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.6.7"
 libraryDependencies += "me.shadaj" %%% "slinky-hot" % "0.6.7"
+libraryDependencies += "org.scala-lang.modules" %%% "scala-parser-combinators" % "2.1.0"
 
 libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.9" % Test
 
