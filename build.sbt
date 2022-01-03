@@ -2,7 +2,7 @@ enablePlugins(ScalaJSBundlerPlugin)
 
 name := "Nazuki"
 
-scalaVersion := "2.13.7"
+scalaVersion := "3.1.0"
 
 Compile / npmDependencies += "react" -> "16.13.1"
 Compile / npmDependencies += "react-dom" -> "16.13.1"
@@ -15,8 +15,8 @@ Compile / npmDevDependencies += "html-webpack-plugin" -> "4.5.1"
 Compile / npmDevDependencies += "copy-webpack-plugin" -> "6.4.0"
 Compile / npmDevDependencies += "webpack-merge" -> "5.8.0"
 
-libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.6.7"
-libraryDependencies += "me.shadaj" %%% "slinky-hot" % "0.6.7"
+libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.7.0"
+libraryDependencies += "me.shadaj" %%% "slinky-hot" % "0.7.0"
 libraryDependencies += "org.scala-lang.modules" %%% "scala-parser-combinators" % "2.1.0"
 
 libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.9" % Test

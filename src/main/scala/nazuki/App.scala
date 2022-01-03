@@ -1,7 +1,6 @@
 package nazuki
 
 import slinky.core._
-import slinky.core.annotations.react
 import slinky.core.facade.Fragment
 import slinky.core.facade.Hooks._
 import slinky.web.html._
@@ -13,8 +12,10 @@ import scala.scalajs.js.annotation.JSImport
 @js.native
 object AppCSS extends js.Object
 
-@react object App {
+object App {
   type Props = Unit
+
+  def apply() = component(())
 
   val component = FunctionalComponent[Props] { props =>
     Fragment(

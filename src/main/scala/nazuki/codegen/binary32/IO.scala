@@ -24,13 +24,13 @@ trait IO {
         for (_ <- 1 to 9) {
           t -= 1
           v += 1
-          at(t) { bfOpn }
+          at(t) { bfOpn() }
         }
         t := 0
         v := 0
         l -= 1
         for (_ <- 1 to 9) {
-          at(t) { bfCls }
+          at(t) { bfCls() }
         }
       }
     }

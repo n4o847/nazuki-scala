@@ -53,40 +53,40 @@ trait Beta {
 
   /** `p` の指す値を 1 増やす。 */
   def inc(p: Ptr) = {
-    at(p) { bfInc }
+    at(p) { bfInc() }
   }
 
   /** `p` の指す値を 1 減らす。 */
   def dec(p: Ptr) = {
-    at(p) { bfDec }
+    at(p) { bfDec() }
   }
 
   /** `p` の指す値を `n` 増やす。 */
   def add(p: Ptr, n: Int) = {
     at(p) {
-      for (_ <- 0 until n) bfInc
+      for (_ <- 0 until n) bfInc()
     }
   }
 
   /** `p` の指す値を `n` 減らす。 */
   def sub(p: Ptr, n: Int) = {
     at(p) {
-      for (_ <- 0 until n) bfDec
+      for (_ <- 0 until n) bfDec()
     }
   }
 
   def getc(p: Ptr) = {
-    at(p) { bfGet }
+    at(p) { bfGet() }
   }
 
   def putc(p: Ptr) = {
-    at(p) { bfPut }
+    at(p) { bfPut() }
   }
 
   def whileLoop(p: Ptr)(f: => Unit) = {
-    at(p) { bfOpn }
+    at(p) { bfOpn() }
     f
-    at(p) { bfCls }
+    at(p) { bfCls() }
   }
 
   /** `p` の指す値を `n` にする。 */
