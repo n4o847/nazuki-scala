@@ -1,4 +1,5 @@
 package nazuki.codegen
+package binary32
 
 import nazuki.util._
 
