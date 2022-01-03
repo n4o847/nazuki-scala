@@ -7,106 +7,106 @@ package nazuki.script
 
 import scala.util.parsing.input._
 
-sealed trait Token
+enum Token {
+  case ENDMARKER
 
-object Token {
-  case object ENDMARKER extends Token
+  case NAME(name: String)
+  case NUMBER(value: Int)
+  case STRING(value: String)
 
-  case class NAME(name: String) extends Token
-  case class NUMBER(value: Int) extends Token
-  case class STRING(value: String) extends Token
+  case NEWLINE
+  case INDENT
+  case DEDENT
 
-  case object NEWLINE extends Token
-  case object INDENT extends Token
-  case object DEDENT extends Token
+  case LPAR
+  case RPAR
+  case LSQB
+  case RSQB
+  case COLON
+  case COMMA
+  case SEMI
+  case PLUS
+  case MINUS
+  case STAR
+  case SLASH
+  case VBAR
+  case AMPER
+  case LESS
+  case GREATER
+  case EQUAL
+  case DOT
+  case PERCENT
+  case LBRACE
+  case RBRACE
+  case EQEQUAL
+  case NOTEQUAL
+  case LESSEQUAL
+  case GREATEREQUAL
+  case TILDE
+  case CIRCUMFLEX
+  case LEFTSHIFT
+  case RIGHTSHIFT
+  case DOUBLESTAR
+  case PLUSEQUAL
+  case MINEQUAL
+  case STAREQUAL
+  case SLASHEQUAL
+  case PERCENTEQUAL
+  case AMPEREQUAL
+  case VBAREQUAL
+  case CIRCUMFLEXEQUAL
+  case LEFTSHIFTEQUAL
+  case RIGHTSHIFTEQUAL
+  case DOUBLESTAREQUAL
+  case DOUBLESLASH
+  case DOUBLESLASHEQUAL
+  case AT
+  case ATEQUAL
+  case RARROW
+  case ELLIPSIS
+  case COLONEQUAL
 
-  case object LPAR extends Token
-  case object RPAR extends Token
-  case object LSQB extends Token
-  case object RSQB extends Token
-  case object COLON extends Token
-  case object COMMA extends Token
-  case object SEMI extends Token
-  case object PLUS extends Token
-  case object MINUS extends Token
-  case object STAR extends Token
-  case object SLASH extends Token
-  case object VBAR extends Token
-  case object AMPER extends Token
-  case object LESS extends Token
-  case object GREATER extends Token
-  case object EQUAL extends Token
-  case object DOT extends Token
-  case object PERCENT extends Token
-  case object LBRACE extends Token
-  case object RBRACE extends Token
-  case object EQEQUAL extends Token
-  case object NOTEQUAL extends Token
-  case object LESSEQUAL extends Token
-  case object GREATEREQUAL extends Token
-  case object TILDE extends Token
-  case object CIRCUMFLEX extends Token
-  case object LEFTSHIFT extends Token
-  case object RIGHTSHIFT extends Token
-  case object DOUBLESTAR extends Token
-  case object PLUSEQUAL extends Token
-  case object MINEQUAL extends Token
-  case object STAREQUAL extends Token
-  case object SLASHEQUAL extends Token
-  case object PERCENTEQUAL extends Token
-  case object AMPEREQUAL extends Token
-  case object VBAREQUAL extends Token
-  case object CIRCUMFLEXEQUAL extends Token
-  case object LEFTSHIFTEQUAL extends Token
-  case object RIGHTSHIFTEQUAL extends Token
-  case object DOUBLESTAREQUAL extends Token
-  case object DOUBLESLASH extends Token
-  case object DOUBLESLASHEQUAL extends Token
-  case object AT extends Token
-  case object ATEQUAL extends Token
-  case object RARROW extends Token
-  case object ELLIPSIS extends Token
-  case object COLONEQUAL extends Token
-
-  case object ERRORTOKEN extends Token
+  case ERRORTOKEN
 
   // Keywords
-  case object FALSE extends Token
-  case object NONE extends Token
-  case object TRUE extends Token
-  case object AND extends Token
-  case object AS extends Token
-  case object ASSERT extends Token
-  case object ASYNC extends Token
-  case object AWAIT extends Token
-  case object BREAK extends Token
-  case object CLASS extends Token
-  case object CONTINUE extends Token
-  case object DEF extends Token
-  case object DEL extends Token
-  case object ELIF extends Token
-  case object ELSE extends Token
-  case object EXCEPT extends Token
-  case object FINALLY extends Token
-  case object FOR extends Token
-  case object FROM extends Token
-  case object GLOBAL extends Token
-  case object IF extends Token
-  case object IMPORT extends Token
-  case object IN extends Token
-  case object IS extends Token
-  case object LAMBDA extends Token
-  case object NONLOCAL extends Token
-  case object NOT extends Token
-  case object OR extends Token
-  case object PASS extends Token
-  case object RAISE extends Token
-  case object RETURN extends Token
-  case object TRY extends Token
-  case object WHILE extends Token
-  case object WITH extends Token
-  case object YIELD extends Token
+  case FALSE
+  case NONE
+  case TRUE
+  case AND
+  case AS
+  case ASSERT
+  case ASYNC
+  case AWAIT
+  case BREAK
+  case CLASS
+  case CONTINUE
+  case DEF
+  case DEL
+  case ELIF
+  case ELSE
+  case EXCEPT
+  case FINALLY
+  case FOR
+  case FROM
+  case GLOBAL
+  case IF
+  case IMPORT
+  case IN
+  case IS
+  case LAMBDA
+  case NONLOCAL
+  case NOT
+  case OR
+  case PASS
+  case RAISE
+  case RETURN
+  case TRY
+  case WHILE
+  case WITH
+  case YIELD
+}
 
+object Token {
   val delimiterMap = Map(
     "(" -> LPAR,
     ")" -> RPAR,

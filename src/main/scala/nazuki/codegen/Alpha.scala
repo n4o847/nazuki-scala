@@ -1,14 +1,17 @@
 package nazuki.codegen
 
 trait Alpha {
-  trait Cmd
-  case object Inc extends Cmd
-  case object Dec extends Cmd
-  case class Step(n: Int) extends Cmd
-  case object Opn extends Cmd
-  case object Cls extends Cmd
-  case object Get extends Cmd
-  case object Put extends Cmd
+  enum Cmd {
+    case Inc
+    case Dec
+    case Step(n: Int)
+    case Opn
+    case Cls
+    case Get
+    case Put
+  }
+
+  import Cmd._
 
   var cmds = List.empty[Cmd]
 
