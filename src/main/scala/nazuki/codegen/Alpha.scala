@@ -1,6 +1,8 @@
 package nazuki.codegen
 
 trait Alpha {
+  given Alpha = this
+
   enum Cmd {
     case Inc
     case Dec

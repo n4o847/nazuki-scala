@@ -4,7 +4,7 @@ package binary32
 import nazuki.util._
 
 trait IO {
-  self: Alpha with Beta with Stack with Int32 =>
+  self: Alpha with Beta with Stack =>
 
   def doScan(signed: Boolean) = {
     consume(0)

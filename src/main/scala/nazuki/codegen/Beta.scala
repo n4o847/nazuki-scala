@@ -25,6 +25,8 @@ case class Vec(range: Range, ctx: Beta) {
 trait Beta {
   self: Alpha =>
 
+  given Beta = this
+
   def alloc(addr: Int) = Ptr(addr, this)
 
   def alloc(range: Range) = Vec(range, this)

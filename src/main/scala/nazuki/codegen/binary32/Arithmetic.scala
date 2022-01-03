@@ -2,7 +2,7 @@ package nazuki.codegen
 package binary32
 
 trait Arithmetic {
-  self: Alpha with Beta with Stack with Int32 =>
+  self: Alpha with Beta with Stack =>
 
   def doInc() = {
     consume(1)
