@@ -22,4 +22,14 @@ package object util {
       }
     }
   }
+
+  implicit class RichBigInt(value: BigInt) {
+    def digits: List[Int] = {
+      if (value == 0) {
+        Nil
+      } else {
+        (value % 10).toInt :: (value / 10).digits
+      }
+    }
+  }
 }
