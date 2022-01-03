@@ -6,7 +6,7 @@ import nazuki.util._
 trait Bitwise {
   self: Alpha with Beta with Stack =>
 
-  def doNot = {
+  def doNot() = {
     consume(1)
     val A = alloc(1 to 32)
     val B = alloc(2 to 33)
@@ -26,7 +26,7 @@ trait Bitwise {
     produce(1)
   }
 
-  def doAnd = {
+  def doAnd() = {
     consume(2)
     val A = alloc(1 to 32)
     val b = alloc(33)
@@ -42,7 +42,7 @@ trait Bitwise {
     produce(1)
   }
 
-  def doOr = {
+  def doOr() = {
     consume(2)
     val A = alloc(1 to 32)
     val b = alloc(33)

@@ -12,25 +12,25 @@ trait Alpha {
 
   var cmds = List.empty[Cmd]
 
-  def bfNop = {}
+  def bfNop() = {}
 
-  def bfInc = {
+  def bfInc() = {
     cmds = cmds match {
       case Dec :: rest => rest
       case rest        => Inc :: rest
     }
   }
 
-  def bfDec = {
+  def bfDec() = {
     cmds = cmds match {
       case Inc :: rest => rest
       case rest        => Dec :: rest
     }
   }
 
-  def bfFwd = bfStep(1)
+  def bfFwd() = bfStep(1)
 
-  def bfBwd = bfStep(-1)
+  def bfBwd() = bfStep(-1)
 
   def bfStep(dx: Int) = {
     val (x, rest) = cmds match {
@@ -44,33 +44,33 @@ trait Alpha {
         Step(x + dx) :: rest
   }
 
-  def bfOpn = {
+  def bfOpn() = {
     cmds = Opn :: cmds
   }
 
-  def bfCls = {
+  def bfCls() = {
     cmds = Cls :: cmds
   }
 
-  def bfGet = {
+  def bfGet() = {
     cmds = Get :: cmds
   }
 
-  def bfPut = {
+  def bfPut() = {
     cmds = Put :: cmds
   }
 
   def raw(code: String) = {
     for (c <- code) c match {
-      case '+' => bfInc
-      case '-' => bfDec
-      case '>' => bfFwd
-      case '<' => bfBwd
-      case '[' => bfOpn
-      case ']' => bfCls
-      case ',' => bfGet
-      case '.' => bfPut
-      case _   => bfNop
+      case '+' => bfInc()
+      case '-' => bfDec()
+      case '>' => bfFwd()
+      case '<' => bfBwd()
+      case '[' => bfOpn()
+      case ']' => bfCls()
+      case ',' => bfGet()
+      case '.' => bfPut()
+      case _   => bfNop()
     }
   }
 

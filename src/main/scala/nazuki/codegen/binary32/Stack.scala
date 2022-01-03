@@ -27,18 +27,18 @@ trait Stack {
     produce(1)
   }
 
-  private def toFront = {
+  private def toFront() = {
     backward(33)
-    bfOpn
+    bfOpn()
     backward(33)
-    bfCls
+    bfCls()
   }
 
-  private def toBack = {
+  private def toBack() = {
     forward(33)
-    bfOpn
+    bfOpn()
     forward(33)
-    bfCls
+    bfCls()
   }
 
   def doGet(x: Int) = {
@@ -47,21 +47,21 @@ trait Stack {
       consume(0)
       val b = alloc(0)
       val B = alloc(1 to 32)
-      toFront
+      toFront()
       forward(33)
       for (_ <- 1 to x) {
-        bfDec
+        bfDec()
         forward(33)
       }
-      bfDec
+      bfDec()
       val a = alloc(0)
       val A = alloc(1 to 32)
       for (i <- 0 to 31) {
         A(i) {
           A(i) -= 1
-          toBack
+          toBack()
           B(i) += 1
-          toFront
+          toFront()
           a += 1
         }
         a {
@@ -69,12 +69,12 @@ trait Stack {
           A(i) += 1
         }
       }
-      bfInc
+      bfInc()
       for (_ <- 1 to x) {
         backward(33)
-        bfInc
+        bfInc()
       }
-      toBack
+      toBack()
       b += 1
       produce(1)
     }
@@ -108,13 +108,13 @@ trait Stack {
       val b = alloc(0)
       val B = alloc(1 to 32)
       b -= 1
-      toFront
+      toFront()
       forward(33)
       for (_ <- 1 to x) {
-        bfDec
+        bfDec()
         forward(33)
       }
-      bfDec
+      bfDec()
       val a = alloc(0)
       val A = alloc(1 to 32)
       for (i <- 0 to 31) {
@@ -122,23 +122,23 @@ trait Stack {
           A(i) -= 1
         }
       }
-      toBack
+      toBack()
       for (i <- 0 to 31) {
         B(i) {
           B(i) -= 1
-          toFront
+          toFront()
           A(i) += 1
-          toBack
+          toBack()
         }
       }
-      toFront
-      bfInc
+      toFront()
+      bfInc()
       for (_ <- 1 to x) {
         backward(33)
-        bfInc
+        bfInc()
       }
       backward(33)
-      toBack
+      toBack()
       produce(0)
     }
     // Negative indices count from the back of the stack.
