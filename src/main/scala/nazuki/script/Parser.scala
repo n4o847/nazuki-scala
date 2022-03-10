@@ -6,6 +6,7 @@ package nazuki.script
   */
 
 import scala.util.parsing.combinator._
+import scala.util.parsing.input._
 import scala.language.implicitConversions
 
 import ast._
@@ -240,10 +241,15 @@ class Parser extends PackratParsers {
 }
 
 object Parser {
-  def parse(source: String) = {
+  case class ParseError(val msg: String, val pos: Position)
+
+  def parse(source: String): Either[ParseError, mod] = {
     val tokens = Lexer.tokenize(source)
     val parser = new Parser()
     val result = parser.file(new TokenReader(tokens))
-    result
+    result match {
+      case parser.Success(result, _) => Right(result)
+      case ns: parser.NoSuccess      => Left(ParseError(ns.msg, ns.next.pos))
+    }
   }
 }
