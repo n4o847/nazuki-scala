@@ -8,7 +8,7 @@ import slinky.web.html._
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
-import nazuki.script._
+import nazuki.script.syntax._
 
 @JSImport("resources/App.css", JSImport.Default)
 @js.native

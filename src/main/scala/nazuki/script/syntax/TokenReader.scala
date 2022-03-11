@@ -1,4 +1,4 @@
-package nazuki.script
+package nazuki.script.syntax
 
 import scala.util.parsing.input._
 

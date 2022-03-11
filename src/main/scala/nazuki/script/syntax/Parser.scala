@@ -1,4 +1,4 @@
-package nazuki.script
+package nazuki.script.syntax
 
 /** Based on
   *   - https://docs.python.org/3/reference/grammar.html
