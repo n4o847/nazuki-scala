@@ -6,52 +6,52 @@ package nazuki.script.syntax
   */
 
 object ast {
-  enum mod {
-    case Module(body: Seq[stmt])
+  enum Mod {
+    case Module(body: Seq[Stmt])
   }
 
-  enum stmt {
-    case Assign(target: Seq[expr], value: expr)
-    case AugAssign(target: expr, op: operator, value: expr)
-    case While(test: expr, body: Seq[stmt])
-    case If(test: expr, body: Seq[stmt], orelse: Seq[stmt])
-    case Expr(value: expr)
+  enum Stmt {
+    case Assign(target: Seq[ast.Expr], value: ast.Expr)
+    case AugAssign(target: ast.Expr, op: Operator, value: ast.Expr)
+    case While(test: ast.Expr, body: Seq[Stmt])
+    case If(test: ast.Expr, body: Seq[Stmt], orelse: Seq[Stmt])
+    case Expr(value: ast.Expr)
   }
 
-  enum expr {
-    case BoolOp(op: boolop, values: Seq[expr])
-    case BinOp(left: expr, op: operator, right: expr)
-    case UnaryOp(op: unaryop, operand: expr)
-    case Compare(left: expr, ops: Seq[cmpop], comparators: Seq[expr])
-    case Call(func: expr, args: Seq[expr])
-    case Constant(value: constant)
+  enum Expr {
+    case BoolOp(op: Boolop, values: Seq[Expr])
+    case BinOp(left: Expr, op: Operator, right: Expr)
+    case UnaryOp(op: Unaryop, operand: Expr)
+    case Compare(left: Expr, ops: Seq[Cmpop], comparators: Seq[Expr])
+    case Call(func: Expr, args: Seq[Expr])
+    case Constant(value: ast.Constant)
     case IntLit(value: Int)
     case StringLit(value: String)
     case CharLit(value: Char)
-    case Name(id: identifier, ctx: expr_context)
-    case Tuple(elts: Seq[expr], ctx: expr_context)
+    case Name(id: Identifier, ctx: ExprContext)
+    case Tuple(elts: Seq[Expr], ctx: ExprContext)
   }
 
-  case class identifier(name: String)
+  case class Identifier(name: String)
 
-  enum constant {
+  enum Constant {
     case True
     case False
     case None
     case Ellipsis
   }
 
-  enum expr_context {
+  enum ExprContext {
     case Load
     case Store
   }
 
-  enum boolop {
+  enum Boolop {
     case And
     case Or
   }
 
-  enum operator {
+  enum Operator {
     case Add
     case Sub
     case Mult
@@ -67,14 +67,14 @@ object ast {
     case FloorDiv
   }
 
-  enum unaryop {
+  enum Unaryop {
     case Invert
     case Not
     case UAdd
     case USub
   }
 
-  enum cmpop {
+  enum Cmpop {
     case Eq
     case NotEq
     case Lt
