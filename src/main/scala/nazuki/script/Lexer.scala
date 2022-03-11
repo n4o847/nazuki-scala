@@ -24,9 +24,21 @@ class Lexer(source: CharSequence) {
     else
       None
 
+  def takeChars(n: Int): Option[String] =
+    if (0 <= n && offset + n <= source.length)
+      Some(source.subSequence(offset, offset + n).toString)
+    else
+      None
+
   def nextChar(): Unit =
     if (offset < source.length)
       offset += 1
+
+  def skipChars(n: Int): Unit =
+    if (0 <= n && offset + n <= source.length)
+      offset += n
+    else if (0 <= n)
+      offset = source.length
 
   def skipWhitespace(): Unit = {
     breakable {
@@ -137,6 +149,7 @@ class Lexer(source: CharSequence) {
             return ERRORTOKEN
         }
 
+      // EOF
       case None =>
         atBeginOfLine = true
         return NEWLINE
@@ -150,45 +163,15 @@ class Lexer(source: CharSequence) {
           case _                                    => break()
         })
         val end = offset
-        return source.subSequence(begin, end).toString match {
-          case "False"    => FALSE
-          case "None"     => NONE
-          case "True"     => TRUE
-          case "and"      => AND
-          case "as"       => AS
-          case "assert"   => ASSERT
-          case "async"    => ASYNC
-          case "await"    => AWAIT
-          case "break"    => BREAK
-          case "class"    => CLASS
-          case "continue" => CONTINUE
-          case "def"      => DEF
-          case "del"      => DEL
-          case "elif"     => ELIF
-          case "else"     => ELSE
-          case "except"   => EXCEPT
-          case "finally"  => FINALLY
-          case "for"      => FOR
-          case "from"     => FROM
-          case "global"   => GLOBAL
-          case "if"       => IF
-          case "import"   => IMPORT
-          case "in"       => IN
-          case "is"       => IS
-          case "lambda"   => LAMBDA
-          case "nonlocal" => NONLOCAL
-          case "not"      => NOT
-          case "or"       => OR
-          case "pass"     => PASS
-          case "raise"    => RAISE
-          case "return"   => RETURN
-          case "try"      => TRY
-          case "while"    => WHILE
-          case "with"     => WITH
-          case "yield"    => YIELD
-          case name       => NAME(name)
+        val ident = source.subSequence(begin, end).toString
+        for {
+          token <- keywordMap.get(ident)
+        } {
+          return token
         }
+        return NAME(ident)
 
+      // Number
       case Some(c) if '0' <= c && c <= '9' =>
         val begin = offset
         nextChar()
@@ -199,232 +182,16 @@ class Lexer(source: CharSequence) {
         val end = offset
         return NUMBER(source.subSequence(begin, end).toString.toInt)
 
-      case Some('(') =>
-        nextChar()
-        return LPAR
-
-      case Some(')') =>
-        nextChar()
-        return RPAR
-
-      case Some('[') =>
-        nextChar()
-        return LSQB
-
-      case Some(']') =>
-        nextChar()
-        return RSQB
-
-      case Some(':') =>
-        nextChar()
-        return COLON
-
-      case Some(',') =>
-        nextChar()
-        return COMMA
-
-      case Some(';') =>
-        nextChar()
-        return SEMI
-
-      case Some('+') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return PLUSEQUAL
-          case _ =>
-            return PLUS
-        }
-
-      case Some('-') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return MINEQUAL
-          case Some('>') =>
-            nextChar()
-            return RARROW
-          case _ =>
-            return MINUS
-        }
-
-      case Some('*') =>
-        nextChar()
-        peekChar match {
-          case Some('*') =>
-            nextChar()
-            peekChar match {
-              case Some('=') =>
-                nextChar()
-                return DOUBLESTAREQUAL
-              case _ =>
-                return DOUBLESTAR
-            }
-          case Some('=') =>
-            nextChar()
-            return STAREQUAL
-          case _ =>
-            return STAR
-        }
-
-      case Some('/') =>
-        nextChar()
-        peekChar match {
-          case Some('/') =>
-            nextChar()
-            peekChar match {
-              case Some('=') =>
-                nextChar()
-                return DOUBLESLASHEQUAL
-              case _ =>
-                return DOUBLESLASH
-            }
-          case Some('=') =>
-            nextChar()
-            return SLASHEQUAL
-          case _ =>
-            return SLASH
-        }
-
-      case Some('|') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return VBAREQUAL
-          case _ =>
-            return VBAR
-        }
-
-      case Some('&') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return AMPEREQUAL
-          case _ =>
-            return AMPER
-        }
-
-      case Some('<') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return LESSEQUAL
-          case Some('<') =>
-            nextChar()
-            peekChar match {
-              case Some('=') =>
-                nextChar()
-                return LEFTSHIFTEQUAL
-              case _ =>
-                return LEFTSHIFT
-            }
-          case _ =>
-            return LESS
-        }
-
-      case Some('>') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return GREATEREQUAL
-          case Some('>') =>
-            nextChar()
-            peekChar match {
-              case Some('=') =>
-                nextChar()
-                return RIGHTSHIFTEQUAL
-              case _ =>
-                return RIGHTSHIFT
-            }
-          case _ =>
-            return GREATER
-        }
-
-      case Some('=') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return EQEQUAL
-          case _ =>
-            return EQUAL
-        }
-
-      case Some('.') =>
-        nextChar()
-        peekChar match {
-          case Some('.') =>
-            nextChar()
-            peekChar match {
-              case Some('.') =>
-                nextChar()
-                return ELLIPSIS
-              case _ =>
-                return ERRORTOKEN
-            }
-          case _ =>
-            return DOT
-        }
-
-      case Some('%') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return PERCENTEQUAL
-          case _ =>
-            return PERCENT
-        }
-
-      case Some('{') =>
-        nextChar()
-        return LBRACE
-
-      case Some('}') =>
-        nextChar()
-        return RBRACE
-
-      case Some('!') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return NOTEQUAL
-          case _ =>
-            return ERRORTOKEN
-        }
-
-      case Some('~') =>
-        nextChar()
-        return TILDE
-
-      case Some('^') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return CIRCUMFLEXEQUAL
-          case _ =>
-            return CIRCUMFLEX
-        }
-
-      case Some('@') =>
-        nextChar()
-        peekChar match {
-          case Some('=') =>
-            nextChar()
-            return ATEQUAL
-          case _ =>
-            return AT
-        }
-
+      // Punctuation
       case Some(_) =>
+        for {
+          n <- List(3, 2, 1)
+          delimiter <- takeChars(n)
+          token <- delimiterMap.get(delimiter)
+        } {
+          skipChars(n)
+          return token
+        }
         return ERRORTOKEN
     })
 
