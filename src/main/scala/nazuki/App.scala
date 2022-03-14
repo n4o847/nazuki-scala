@@ -9,6 +9,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 import nazuki.script.syntax._
+import nazuki.script.CodeGenerator
 
 @JSImport("resources/App.css", JSImport.Default)
 @js.native
@@ -33,7 +34,7 @@ object App {
       Nil
     )
 
-    def handleCompile() = {
+    def handleCompile(): Unit = {
       println(source)
 
       val tokens = Lexer.tokenize(source)
@@ -44,6 +45,14 @@ object App {
 
       val result = s"${tokens}\n\n${tree}"
       setResult(result)
+
+      tree.map { tree =>
+        val asm = CodeGenerator.generate(tree)
+        println(asm)
+
+        val result = s"${tokens}\n\n${tree}\n\n${asm}"
+        setResult(result)
+      }
     }
 
     Fragment(
