@@ -152,4 +152,25 @@ trait Beta {
       }
     }
   }
+
+  /** 環境を消費するときのための分岐。
+    *   - `temp` の指す値は 0 でなければならない。
+    *   - `cond` の指す値が 1 のとき、
+    *     - `cond` の指す値を 0 にする。
+    *     - `doCons` を実行する。
+    *   - `cond` の指す値が 0 のとき、
+    *     - `doAlt` を実行する。
+    */
+  def branchOnce(cond: Ptr, temp: Ptr)(doCons: => Unit)(doAlt: => Unit) = {
+    cond {
+      cond -= 1
+      doCons
+      temp -= 1
+    }
+    temp += 1
+    temp {
+      temp -= 1
+      doAlt
+    }
+  }
 }
