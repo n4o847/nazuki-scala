@@ -49,7 +49,7 @@ class VirtualMachine
       while (n > (1 << w)) w += 1
       w
     }
-    codeWidth = getWidth(instructions.size) + 1
+    codeWidth = getWidth(instructionMap.size) + 1
 
     val opcodeMap = Map.from(
       for (instruction <- instructionMap.keys)
