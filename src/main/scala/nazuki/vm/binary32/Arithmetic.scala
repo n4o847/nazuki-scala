@@ -1,4 +1,4 @@
-package nazuki.codegen
+package nazuki.vm
 package binary32
 
 trait Arithmetic {

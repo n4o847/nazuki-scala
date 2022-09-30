@@ -1,4 +1,4 @@
-package nazuki.codegen
+package nazuki.vm
 
 trait Alpha {
   given Alpha = this

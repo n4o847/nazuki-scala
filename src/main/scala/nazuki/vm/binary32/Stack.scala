@@ -1,4 +1,4 @@
-package nazuki.codegen
+package nazuki.vm
 package binary32
 
 import nazuki.util._

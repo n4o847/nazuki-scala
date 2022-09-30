@@ -1,4 +1,4 @@
-package nazuki.codegen
+package nazuki.vm
 package binary32
 
 case class Int32(range: Vec)(using alpha: Alpha, beta: Beta) {

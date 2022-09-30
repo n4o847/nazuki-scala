@@ -1,4 +1,4 @@
-package nazuki.codegen
+package nazuki.vm
 
 case class Ptr(addr: Int, ctx: Beta) {
   def apply(f: => Unit) = {
