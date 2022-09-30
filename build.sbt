@@ -4,15 +4,21 @@ name := "Nazuki"
 
 scalaVersion := "3.1.0"
 
-Compile / npmDependencies += "react" -> "16.13.1"
-Compile / npmDependencies += "react-dom" -> "16.13.1"
+// Run
+// ```
+// ncu --packageFile target/scala-3.1.0/scalajs-bundler/main/package.json
+// ```
+// to check updates.
+
+Compile / npmDependencies += "react" -> "18.2.0"
+Compile / npmDependencies += "react-dom" -> "18.2.0"
 Compile / npmDependencies += "react-proxy" -> "1.1.8"
 
 Compile / npmDevDependencies += "file-loader" -> "6.2.0"
 Compile / npmDevDependencies += "style-loader" -> "2.0.0"
-Compile / npmDevDependencies += "css-loader" -> "5.2.6"
-Compile / npmDevDependencies += "html-webpack-plugin" -> "4.5.1"
-Compile / npmDevDependencies += "copy-webpack-plugin" -> "6.4.0"
+Compile / npmDevDependencies += "css-loader" -> "5.2.7"
+Compile / npmDevDependencies += "html-webpack-plugin" -> "4.5.2"
+Compile / npmDevDependencies += "copy-webpack-plugin" -> "6.4.1"
 Compile / npmDevDependencies += "webpack-merge" -> "5.8.0"
 
 libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.7.0"
@@ -23,8 +29,8 @@ libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.9" % Test
 
 scalacOptions += "-Ymacro-annotations"
 
-webpack / version := "4.44.2"
-startWebpackDevServer / version := "3.11.2"
+webpack / version := "4.46.0"
+startWebpackDevServer / version := "3.11.3"
 
 webpackResources := baseDirectory.value / "webpack" * "*"
 
