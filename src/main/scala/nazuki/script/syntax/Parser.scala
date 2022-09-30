@@ -16,13 +16,13 @@ class Parser extends PackratParsers {
   type Elem = Token
 
   def NAME: Parser[Identifier] =
-    acceptMatch("name", { case NAME(name) => Identifier(name) })
+    acceptMatch("name", { case Token.NAME(name) => Identifier(name) })
 
   def STRING: Parser[String] =
-    acceptMatch("string", { case STRING(value) => value })
+    acceptMatch("string", { case Token.STRING(value) => value })
 
   def NUMBER: Parser[Int] =
-    acceptMatch("number", { case NUMBER(value) => value })
+    acceptMatch("number", { case Token.NUMBER(value) => value })
 
   implicit def token(s: String): Parser[Token] =
     (delimiterMap.get(s) orElse keywordMap.get(s)).get
