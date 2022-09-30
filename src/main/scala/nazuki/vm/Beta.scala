@@ -1,6 +1,6 @@
 package nazuki.vm
 
-case class Ptr(addr: Int, ctx: Beta) {
+case class Ptr(addr: Int)(using ctx: Beta) {
   def apply(f: => Unit) = {
     ctx.whileLoop(this) { f }
   }
@@ -18,8 +18,8 @@ case class Ptr(addr: Int, ctx: Beta) {
   }
 }
 
-case class Vec(range: Range, ctx: Beta) {
-  def apply(idx: Int) = Ptr(range(idx), ctx)
+case class Vec(range: Range)(using ctx: Beta) {
+  def apply(idx: Int) = Ptr(range(idx))
 }
 
 trait Beta {
@@ -27,9 +27,9 @@ trait Beta {
 
   given Beta = this
 
-  def alloc(addr: Int) = Ptr(addr, this)
+  def alloc(addr: Int) = Ptr(addr)
 
-  def alloc(range: Range) = Vec(range, this)
+  def alloc(range: Range) = Vec(range)
 
   def forward(n: Int) = {
     bfStep(n)
