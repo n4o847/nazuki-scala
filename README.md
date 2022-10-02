@@ -6,6 +6,8 @@
 $ sbt dev
 ```
 
+Then open http://localhost:8080/.
+
 ## Build
 
 ```sh
