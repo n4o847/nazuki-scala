@@ -38,4 +38,5 @@ enum Instruction {
   case Jz(offset: Int)
   case Jnz(offset: Int)
   case Jeq(offset: Int)
+  case Exit
 }
