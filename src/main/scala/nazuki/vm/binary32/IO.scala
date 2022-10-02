@@ -6,6 +6,17 @@ import nazuki.util._
 trait IO {
   self: Alpha with Beta with Stack =>
 
+  def doWrite(text: String): Unit = {
+    consume(0)
+    val a = alloc(0)
+    for (byte <- text.getBytes()) {
+      a += byte
+      bfPut()
+      a -= byte
+    }
+    produce(0)
+  }
+
   def doScan(signed: Boolean) = {
     consume(0)
 
