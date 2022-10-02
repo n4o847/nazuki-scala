@@ -2,7 +2,7 @@ package nazuki.vm
 package binary32
 
 trait Arithmetic {
-  self: Alpha with Beta with Stack =>
+  self: Alpha with Beta with Stack with Bitwise =>
 
   def doInc() = {
     consume(1)
@@ -34,6 +34,12 @@ trait Arithmetic {
     }
     B.carry := 0
     produce(1)
+  }
+
+  def doSub(): Unit = {
+    doNot()
+    doInc()
+    doAdd()
   }
 
   def doMul10() = {

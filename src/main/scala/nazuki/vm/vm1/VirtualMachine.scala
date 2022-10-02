@@ -20,6 +20,7 @@ class VirtualMachine
     with Beta
     with binary32.Stack
     with binary32.IO
+    with binary32.Bitwise
     with binary32.Arithmetic {
 
   case class Instruction(id: Int)
